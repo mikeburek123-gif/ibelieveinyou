@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Girl's Med Study Sanctuary 🩺💖 | Connected Across Miles</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Sacramento&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Tone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blush: { 50: '#fff0f3', 100: '#ffe4e6', 200: '#fecdd3', 400: '#fb7185', 500: '#f43f5e', 600: '#e11d48' },
+                        scrubTeal: { 50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 400: '#4ade80', 500: '#22c55e', 600: '#16a34a' },
+                        medGreen: '#14b8a6',
+                        cozyWarm: '#fffbf5',
+                        sunsetSky: '#ffedd5',
+                        nightSky: '#1e1b4b'
+                    },
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Nunito', 'sans-serif'],
+                        script: ['Sacramento', 'cursive'],
+                        cozy: ['Quicksand', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(-45deg, #f0fdf4, #fff0f3, #e0f2fe, #f3e8ff);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 14px 40px -8px rgba(20, 184, 166, 0.12);
+        }
+
+        /* ECG Wave Animation */
+        @keyframes ecgScroll {
+            0% { stroke-dashoffset: 600; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .ecg-line {
+            stroke-dasharray: 600;
+            animation: ecgScroll 2.5s linear infinite;
+        }
+
+        /* Floating IV Drip Drop Animation */
+        @keyframes dripDrop {
+            0% { transform: translateY(0) scale(1); opacity: 0.9; }
+            80% { transform: translateY(28px) scale(0.8); opacity: 0.9; }
+            100% { transform: translateY(32px) scale(0.1); opacity: 0; }
+        }
+        .animate-drip { animation: dripDrop 1.8s ease-in infinite; }
+
+        /* Floating Cloud Animation */
+        @keyframes drift {
+            0% { transform: translateX(-40px); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(-40px); }
+        }
+        .cloud-drift { animation: drift 18s ease-in-out infinite; }
+
+        /* Window Sky Backgrounds */
+        .sky-day { background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #fef3c7 100%); }
+        .sky-sunset { background: linear-gradient(180deg, #fdba74 0%, #f472b6 60%, #c084fc 100%); }
+        .sky-night { background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%); }
+
+        /* Bunny Animations */
+        @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+        .animate-blink { animation: blink 4s infinite; transform-origin: center; }
+
+        @keyframes headNod { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(3deg); } }
+        .animate-nod { animation: headNod 3.5s ease-in-out infinite; transform-origin: 160px 140px; }
+
+        @keyframes pencilWrite {
+            0%, 100% { transform: translate(0,0) rotate(0deg); }
+            30% { transform: translate(3px, -2px) rotate(-4deg); }
+            70% { transform: translate(1px, 2px) rotate(3deg); }
+        }
+        .animate-pencil { animation: pencilWrite 1s ease-in-out infinite; }
+
+        /* Vinyl Record Spin */
+        @keyframes spinVinyl {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spinning-vinyl { animation: spinVinyl 4s linear infinite; }
+
+        /* Wave SVG Tank */
+        @keyframes waveMove { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .wave-path { animation: waveMove 3s linear infinite; }
+
+        /* Drawer Slide & Flip Book */
+        .book-container { perspective: 1000px; }
+        .book-page {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.4s;
+            transform-origin: left center;
+        }
+        .book-page.flipping { transform: rotateY(-180deg); opacity: 0; }
+
+        /* Floating Stress Bubbles */
+        @keyframes floatBubble {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        .bubble-float { animation: floatBubble 3s ease-in-out infinite; }
+
+        #particleCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+    </style>
+</head>
+<body class="text-gray-700 relative pb-16">
+
+    <!-- Ambient Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 pt-6 sm:pt-10">
+
+        <!-- MED-SCHOOL HEADER BAR -->
+        <header class="flex justify-between items-center mb-6 glass-card rounded-full px-6 py-3">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl animate-pulse">🩺</span>
+                <div>
+                    <h1 class="font-heading font-bold text-teal-700 text-base sm:text-lg leading-none">Dr. Girl's Med Study Sanctuary</h1>
+                    <span class="text-[11px] text-gray-500 font-semibold">Rx: 1000mg Love & Unlimited Cheering 💖</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <!-- Sky Time-of-Day Selector -->
+                <div class="flex bg-teal-100/70 p-1 rounded-full text-xs font-bold">
+                    <button onclick="setSky('day')" id="skyDayBtn" class="px-2.5 py-1 rounded-full bg-white text-teal-700 shadow-sm transition">☀️ Day Shift</button>
+                    <button onclick="setSky('sunset')" id="skySunsetBtn" class="px-2.5 py-1 rounded-full text-gray-600 transition">🌅 Sunset</button>
+                    <button onclick="setSky('night')" id="skyNightBtn" class="px-2.5 py-1 rounded-full text-gray-600 transition">🌙 Call Shift</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- CENTRAL HERO SCENE: ANIMATED MEDICAL STUDY DESK & CLINICAL SCENE -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 mb-8 text-center relative overflow-hidden">
+            <div class="absolute -top-12 -left-12 w-48 h-48 bg-teal-100 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute -bottom-12 -right-12 w-56 h-56 bg-rose-200 rounded-full blur-3xl opacity-50"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <!-- ANIMATED MEDICAL ROOM SVG SCENE -->
+                <div class="w-full max-w-[340px] sm:max-w-[380px] h-72 relative flex-shrink-0 cursor-pointer" onclick="petMascot()" title="Tap Dr. Bunny for rounds!">
+                    <svg viewBox="0 0 360 260" class="w-full h-full drop-shadow-xl overflow-visible">
+                        <defs>
+                            <linearGradient id="lampLight" x1="0%" y1="0%" x2="50%" y2="100%">
+                                <stop offset="0%" stop-color="#fef08a" stop-opacity="0.85" />
+                                <stop offset="100%" stop-color="#fef08a" stop-opacity="0.05" />
+                            </linearGradient>
+                            <clipPath id="windowClip">
+                                <rect x="25" y="25" width="100" height="110" rx="12" />
+                            </clipPath>
+                        </defs>
+
+                        <!-- DYNAMIC WINDOW WITH SKY -->
+                        <g>
+                            <rect id="windowSky" x="25" y="25" width="100" height="110" rx="12" class="sky-day transition-all duration-700" />
+                            
+                            <g clip-path="url(#windowClip)">
+                                <circle id="windowCelestial" cx="80" cy="48" r="14" fill="#fde047" class="transition-all duration-700" />
+                                <g id="windowClouds" class="cloud-drift">
+                                    <ellipse cx="45" cy="55" rx="16" ry="8" fill="#ffffff" opacity="0.85" />
+                                    <ellipse cx="60" cy="58" rx="12" ry="6" fill="#ffffff" opacity="0.85" />
+                                </g>
+                                <g id="windowStars" opacity="0" class="transition-opacity duration-700">
+                                    <circle cx="35" cy="40" r="1.5" fill="#ffffff" />
+                                    <circle cx="90" cy="35" r="2" fill="#ffffff" />
+                                    <circle cx="45" cy="80" r="1.5" fill="#ffffff" />
+                                </g>
+                            </g>
+                            <rect x="25" y="25" width="100" height="110" rx="12" fill="none" stroke="#e2e8f0" stroke-width="4" />
+                            <line x1="75" y1="25" x2="75" y2="135" stroke="#e2e8f0" stroke-width="3" />
+                            <line x1="25" y1="80" x2="125" y2="80" stroke="#e2e8f0" stroke-width="3" />
+                        </g>
+
+                        <!-- ANIMATED LIVE ECG HEARTBEAT MONITOR SCREEN -->
+                        <g transform="translate(140, 30)" class="cursor-pointer" onclick="triggerEcgSpike()">
+                            <rect x="0" y="0" width="115" height="75" rx="8" fill="#0f172a" stroke="#334155" stroke-width="3" />
+                            <!-- Screen Grid -->
+                            <path d="M 0 25 L 115 25 M 0 50 L 115 50 M 38 0 L 38 75 M 76 0 L 76 75" stroke="#1e293b" stroke-width="1" />
+                            <!-- Pulsing ECG Trace Line -->
+                            <path class="ecg-line" d="M 0 40 L 25 40 L 30 25 L 35 55 L 42 10 L 48 65 L 54 40 L 70 40 L 74 30 L 78 45 L 82 40 L 115 40" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+                            <!-- BPM Indicator -->
+                            <text x="8" y="18" fill="#4ade80" font-size="9" font-family="monospace" font-weight="bold">BPM: <tspan id="bpmVal">75</tspan> ❤️</text>
+                            <text x="70" y="18" fill="#38bdf8" font-size="8" font-family="monospace">O2: 100%</text>
+                        </g>
+
+                        <!-- IV BAG: LIQUID LOVE & COFFEE -->
+                        <g transform="translate(275, 20)" class="cursor-pointer" onclick="triggerIvDripFast()">
+                            <!-- IV Pole Stand -->
+                            <line x1="15" y1="0" x2="15" y2="180" stroke="#94a3b8" stroke-width="3" />
+                            <path d="M 5 12 Q 15 0 25 12" fill="none" stroke="#94a3b8" stroke-width="3" />
+                            <!-- IV Bag -->
+                            <rect x="2" y="15" width="26" height="42" rx="6" fill="#bfdbfe" opacity="0.8" stroke="#60a5fa" stroke-width="1.5" />
+                            <!-- Fluid Inside -->
+                            <rect x="4" y="26" width="22" height="28" rx="4" fill="#f43f5e" opacity="0.85" />
+                            <text x="6" y="38" fill="#ffffff" font-size="6" font-weight="bold">LOVE</text>
+                            <text x="5" y="46" fill="#ffffff" font-size="5">1000ml</text>
+                            <!-- Animated Drip -->
+                            <circle id="svgDripCircle" cx="15" cy="62" r="2" fill="#f43f5e" class="animate-drip" />
+                        </g>
+
+                        <!-- DESK SURFACE -->
+                        <rect x="15" y="200" width="330" height="20" rx="6" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
+                        <rect x="35" y="220" width="18" height="35" rx="3" fill="#94a3b8" />
+                        <rect x="307" y="220" width="18" height="35" rx="3" fill="#94a3b8" />
+
+                        <!-- MEDICAL TEXTBOOKS ON DESK -->
+                        <g transform="translate(25, 172)">
+                            <!-- Medical Physiology -->
+                            <rect x="0" y="0" width="45" height="12" rx="2" fill="#0284c7" />
+                            <text x="3" y="9" fill="#ffffff" font-size="5.5" font-weight="bold">Fiziologija</text>
+                            <!-- Atlas of Anatomy -->
+                            <rect x="2" y="12" width="43" height="16" rx="2" fill="#0d9488" />
+                            <text x="4" y="23" fill="#ffffff" font-size="5.5" font-weight="bold">Anatomija Atlas</text>
+                        </g>
+
+                        <!-- ANKI VICTORY BELL ON DESK -->
+                        <g transform="translate(80, 180)" class="cursor-pointer" onclick="ringVictoryBell()">
+                            <path d="M 5 18 L 25 18 L 20 8 Q 15 2 10 8 Z" fill="#f59e0b" stroke="#d97706" stroke-width="1" />
+                            <rect x="3" y="18" width="24" height="3" rx="1.5" fill="#d97706" />
+                            <circle cx="15" cy="3" r="2" fill="#b45309" />
+                            <text x="3" y="25" fill="#78350f" font-size="4.5" font-weight="bold">Anki Bell</text>
+                        </g>
+
+                        <!-- STETHOSCOPE ON DESK -->
+                        <path d="M 105 195 Q 112 185 120 195 T 128 195" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" />
+                        <circle cx="129" cy="195" r="4.5" fill="#cbd5e1" stroke="#475569" stroke-width="1.5" />
+
+                        <!-- ANIMATED DR. BUNNY MASCOT (DOCTOR COAT & STETHOSCOPE) -->
+                        <g class="animate-nod">
+                            <!-- Ears -->
+                            <g>
+                                <ellipse cx="180" cy="70" rx="13" ry="42" fill="#ffffff" stroke="#fecdd3" stroke-width="2.5" transform="rotate(-10 180 70)" />
+                                <ellipse cx="180" cy="70" rx="6.5" ry="30" fill="#fda4af" transform="rotate(-10 180 70)" />
+                                
+                                <ellipse cx="225" cy="70" rx="13" ry="42" fill="#ffffff" stroke="#fecdd3" stroke-width="2.5" transform="rotate(10 225 70)" />
+                                <ellipse cx="225" cy="70" rx="6.5" ry="30" fill="#fda4af" transform="rotate(10 225 70)" />
+                            </g>
+
+                            <!-- Head -->
+                            <circle cx="202" cy="135" r="52" fill="#ffffff" stroke="#ffe4e6" stroke-width="3" />
+                            
+                            <!-- Cheeks -->
+                            <ellipse cx="174" cy="144" rx="8" ry="5" fill="#fda4af" opacity="0.75" />
+                            <ellipse cx="230" cy="144" rx="8" ry="5" fill="#fda4af" opacity="0.75" />
+
+                            <!-- Eyes (Blinking) -->
+                            <g class="animate-blink">
+                                <circle cx="183" cy="133" r="5.5" fill="#334155" />
+                                <circle cx="221" cy="133" r="5.5" fill="#334155" />
+                                <circle cx="185" cy="131" r="2" fill="#ffffff" />
+                                <circle cx="223" cy="131" r="2" fill="#ffffff" />
+                            </g>
+
+                            <!-- Cute Doctor Glasses -->
+                            <circle cx="183" cy="133" r="14" fill="none" stroke="#0d9488" stroke-width="2.5" />
+                            <circle cx="221" cy="133" r="14" fill="none" stroke="#0d9488" stroke-width="2.5" />
+                            <line x1="197" y1="133" x2="207" y2="133" stroke="#0d9488" stroke-width="2.5" />
+
+                            <!-- Nose -->
+                            <polygon points="200,139 204,139 202,143" fill="#fb7185" />
+                            <path d="M 197 145 Q 202 149 207 145" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round" />
+                        </g>
+
+                        <!-- White Doctor Coat & Stethoscope around neck -->
+                        <path d="M 160 180 Q 202 165 244 180 L 252 200 L 152 200 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+                        <!-- Stethoscope Tubing around neck -->
+                        <path d="M 175 168 Q 202 190 229 168" fill="none" stroke="#2563eb" stroke-width="3" />
+                        <circle cx="202" cy="186" r="4" fill="#cbd5e1" stroke="#1d4ed8" stroke-width="1.5" />
+
+                        <!-- Notebook & Pencil -->
+                        <g>
+                            <polygon points="170,192 245,192 255,200 160,200" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5" />
+                            <line x1="207.5" y1="192" x2="207.5" y2="200" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="2 1" />
+                            <ellipse cx="182" cy="194" rx="8" ry="5" fill="#ffffff" stroke="#fecdd3" />
+                            <g class="animate-pencil">
+                                <ellipse cx="215" cy="194" rx="8" ry="5" fill="#ffffff" stroke="#fecdd3" />
+                                <line x1="215" y1="194" x2="228" y2="180" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round" />
+                            </g>
+                        </g>
+                    </svg>
+
+                    <!-- Mascot Dynamic Speech Bubble -->
+                    <div id="mascotSpeech" class="absolute top-2 right-0 bg-white text-teal-700 text-xs font-bold py-1.5 px-3 rounded-2xl shadow-lg border border-teal-100 transition-all duration-300 opacity-0 transform translate-y-2 pointer-events-none">
+                        Dr. Bunny approves your study session! 🩺
+                    </div>
+                </div>
+
+                <!-- HERO TEXT & PERSONAL REASSURANCE -->
+                <div class="text-center md:text-left flex-1">
+                    <span class="inline-block px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
+                        🩺 Future Doctor's Sanctuary
+                    </span>
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-gray-800 leading-tight">
+                        Future Doctor, <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-rose-500">I'm So Proud of You 💖</span>
+                    </h2>
+                    <p class="mt-3 text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl font-cozy">
+                        Every nerve pathway, bone insertion, and cellular action potential you study is making you an incredible doctor. Take a deep breath and let your boy cheer for you!
+                    </p>
+
+                    <!-- Romantic Med Badges -->
+                    <div class="mt-5 flex flex-wrap gap-2 justify-center md:justify-start">
+                        <span class="px-3.5 py-1.5 bg-white/90 rounded-xl text-xs font-bold text-teal-600 border border-teal-200 shadow-sm flex items-center gap-1.5">
+                            <i class="fas fa-stethoscope"></i> Anatomija & Fiziologija
+                        </span>
+                        <span class="px-3.5 py-1.5 bg-white/90 rounded-xl text-xs font-bold text-rose-500 border border-rose-200 shadow-sm flex items-center gap-1.5">
+                            <i class="fas fa-heartbeat"></i> Highest BPM for You
+                        </span>
+                        <span class="px-3.5 py-1.5 bg-white/90 rounded-xl text-xs font-bold text-purple-600 border border-purple-200 shadow-sm flex items-center gap-1.5">
+                            <i class="fas fa-pills"></i> 100% Oxytocin Infused
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW FEATURE 1 & 2 BAR: ANKI VICTORY BELL & IV INFUSION PUMP -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            
+            <!-- NEW FEATURE 1: ANATOMIJA & FIZIOLOGIJA ANKI VICTORY BELL -->
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-bell text-amber-500 animate-bounce"></i> A&P Atlas & Anki Victory Bell 🔔
+                        </h3>
+                        <span id="cardsMasteredBadge" class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">0 Decks Ringed</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4 font-cozy">Finished reviewing a tough bone diagram or physiological cycle? Ring the victory bell to celebrate!</p>
+                </div>
+
+                <!-- Interactive Bell Display -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 text-center my-2 flex flex-col items-center justify-center">
+                    <button onclick="ringVictoryBell()" class="w-20 h-20 bg-gradient-to-tr from-amber-400 via-amber-300 to-yellow-200 hover:from-amber-500 hover:to-yellow-300 rounded-full shadow-lg border-4 border-white flex items-center justify-center transition transform active:scale-90 hover:rotate-6 group">
+                        <i class="fas fa-concierge-bell text-3xl text-amber-900 group-hover:scale-110 transition"></i>
+                    </button>
+                    <span class="text-xs font-bold text-amber-800 mt-2">TAP BELL FOR DECK VICTORY!</span>
+                    <span id="lastMasteredText" class="text-[11px] text-amber-600 font-cozy italic mt-1">"Ring when you finish an Anatomija diagram!"</span>
+                </div>
+
+                <button onclick="ringVictoryBell()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-2.5 px-4 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition transform active:scale-95">
+                    <i class="fas fa-award"></i> Ring Victory Bell & Celebrate ✨
+                </button>
+            </div>
+
+            <!-- NEW FEATURE 2: IV INFUSION PUMP BRAIN POWER BOOSTER -->
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-syringe text-teal-600"></i> IV Brain Power & Hug Pump 💧
+                        </h3>
+                        <span id="ivDripRateBadge" class="text-xs font-bold text-teal-700 bg-teal-100 px-3 py-1 rounded-full">Standard Rate</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3 font-cozy">Select a custom medical infusion dose to boost your brain energy for long study sessions!</p>
+                </div>
+
+                <!-- Dosage Selector -->
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                    <button onclick="setIvDose('hug', this)" class="iv-dose-btn px-2 py-2 bg-teal-500 text-white rounded-xl text-[11px] font-bold shadow-sm transition">
+                        500ml Hugs 💖
+                    </button>
+                    <button onclick="setIvDose('atp', this)" class="iv-dose-btn px-2 py-2 bg-white text-gray-700 border border-teal-200 rounded-xl text-[11px] font-bold shadow-sm transition">
+                        Fiziologija ATP ⚡
+                    </button>
+                    <button onclick="setIvDose('focus', this)" class="iv-dose-btn px-2 py-2 bg-white text-gray-700 border border-teal-200 rounded-xl text-[11px] font-bold shadow-sm transition">
+                        1000mg Focus 🧠
+                    </button>
+                </div>
+
+                <!-- Pump Status Display -->
+                <div class="bg-slate-900 text-green-400 font-mono rounded-2xl p-3 text-xs mb-3 border border-slate-700 flex justify-between items-center shadow-inner">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-ping"></span>
+                        <span>INFUSION PUMP: ACTIVE</span>
+                    </div>
+                    <span id="ivDosageDisplay" class="text-xs text-teal-300 font-bold">500ml Pure Love</span>
+                </div>
+
+                <button onclick="triggerIvDripFast()" class="w-full bg-gradient-to-r from-teal-600 to-emerald-500 hover:from-teal-700 hover:to-emerald-600 text-white font-bold py-2.5 px-4 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition transform active:scale-95">
+                    <i class="fas fa-hand-holding-water"></i> Infuse Extra Love Drop
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN INTERACTIVE GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+
+            <!-- MODULE 1: DOCTOR'S RX SECRET PRESCRIPTION LOVE NOTES (BROUGHT BACK & ENHANCED) -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-prescription text-teal-600"></i> Doctor's Rx Secret Love Notes 💊
+                        </h3>
+                        <span class="text-[11px] font-bold text-teal-700 bg-teal-100 px-2.5 py-1 rounded-full">DAILY DOSE</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4 font-cozy">Tap the wooden Rx drawer to pull out a cute prescription card written just for you.</p>
+                </div>
+
+                <!-- 3D FLIP PRESCRIPTION CARD & DRAWER SCENE -->
+                <div class="my-3 book-container flex justify-center">
+                    <div id="rxCard" class="w-full max-w-sm bg-gradient-to-br from-rose-50 via-white to-teal-50 border-2 border-teal-200/80 rounded-2xl p-5 shadow-lg relative min-h-[210px] flex flex-col justify-between transition-all duration-500 transform hover:scale-[1.02]">
+                        <!-- Card Header -->
+                        <div class="flex justify-between items-start border-b border-dashed border-teal-200 pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-2xl">🩺</span>
+                                <div>
+                                    <span class="font-heading font-extrabold text-teal-700 text-xs block">PRESCRIPTION FOR MY DOCTOR</span>
+                                    <span class="text-[10px] text-gray-400 font-mono">Rx #: LOVE-2026-AP</span>
+                                </div>
+                            </div>
+                            <span id="rxTag" class="text-[10px] font-extrabold text-rose-500 bg-rose-100 px-2 py-0.5 rounded-full">Anatomija Boost</span>
+                        </div>
+
+                        <!-- Card Dynamic Body Quote -->
+                        <div class="my-3">
+                            <p id="rxMessage" class="text-xs sm:text-sm text-gray-700 font-cozy font-semibold leading-relaxed italic">
+                                "Rx: 1000mg of Pure Pride! Every time you memorize a muscle insertion or nerve pathway in Anatomija, remember how proud of you I am across the distance. You're going to be an incredible doctor!"
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-2 border-t border-dashed border-teal-200 flex justify-between items-center text-[10px] text-gray-500 font-mono">
+                            <span>SIG: Take 1 note every time study gets hard</span>
+                            <span class="font-bold text-teal-600">Refills: ∞</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RX DRAWER BUTTONS -->
+                <div class="flex gap-3 mt-2">
+                    <button onclick="drawNewRxNote()" class="flex-1 bg-gradient-to-r from-teal-600 to-emerald-500 hover:from-teal-700 hover:to-emerald-600 text-white font-bold py-2.5 px-4 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition transform active:scale-95">
+                        <i class="fas fa-hand-holding-medical text-sm"></i> Pull New Prescription Note
+                    </button>
+                </div>
+
+                <!-- Stethoscope Rhythm Ambient Toggle & Stethoscope Heartbeat -->
+                <div class="mt-4 pt-3 border-t border-teal-100/60 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg">🫀</span>
+                        <div>
+                            <span class="text-xs font-bold text-gray-700 block leading-tight">Live Stethoscope Rhythm</span>
+                            <span class="text-[10px] text-gray-400">Click to feel the cardiac pulse</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleHeartbeatSound()" id="heartbeatSoundBtn" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fas fa-heartbeat"></i> <span id="heartbeatText">Play Stethoscope</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- MODULE 2: FLUID LOVE ENERGY TANK & HUG CANNON -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-heading text-xl font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fas fa-fill-drip text-rose-500"></i> Med Study Love Energy Tank 💖
+                    </h3>
+                    <span id="tankPercent" class="text-xs font-bold text-rose-600 bg-rose-100 px-2.5 py-1 rounded-full">45% Charged</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4 font-cozy">Tap the tank to send glowing heart bursts & keep her battery 100% full!</p>
+            </div>
+
+            <!-- ANIMATED FLUID SVG TANK -->
+            <div id="tankContainer" class="relative w-full h-44 bg-rose-50/60 rounded-3xl border-2 border-rose-200 overflow-hidden cursor-pointer shadow-inner my-2" onclick="chargeLoveEnergy(event)">
+                <!-- Animated Liquid Level (starts at 45% so it has room to fill) -->
+                <div id="tankLiquid" class="absolute bottom-0 left-0 w-full transition-all duration-700 ease-out" style="height: 45%;">
+                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-[200%] h-8 absolute -top-7 left-0 wave-path opacity-80">
+                        <path d="M0,0 C150,90 350,-40 500,40 C650,120 900,-20 1200,40 L1200,120 L0,120 Z" fill="#fb7185"></path>
+                    </svg>
+                    <div class="w-full h-full bg-gradient-to-t from-rose-500 to-rose-400"></div>
+                </div>
+
+                <!-- Tank Text Overlay -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-white font-bold drop-shadow-md pointer-events-none">
+                    <span id="tankHeartIcon" class="text-3xl animate-bounce mb-1">❤️</span>
+                    <span id="tankStatusText" class="text-sm tracking-wide">TAP TO CHARGE HER BATTERY</span>
+                    <span class="text-[10px] font-normal opacity-90">Anatomija & Fiziologija Energy Infusion</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mt-2">
+                <button onclick="chargeLoveEnergy(event)" class="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold py-2.5 px-4 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition transform active:scale-95">
+                    <i class="fas fa-heart text-sm"></i> Send Virtual Hug & Dopamine Spark
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & ANIMATION ENGINE -->
+    <script>
+        /* --------------------------------------------------
+         * 1. STETHOSCOPE PROCEDURAL AUDIO & ECG WAVE ENGINE
+         * -------------------------------------------------- */
+        let heartbeatLoop;
+        let isHeartbeatPlaying = false;
+        let bpm = 75;
+
+        // NEW FEATURE 1 LOGIC: ANATOMIJA & FIZIOLOGIJA VICTORY BELL
+        let cardsMasteredCount = 0;
+        const victoryPhrases = [
+            "Brachial Plexus Conquered! 🦴",
+            "Cardiac Action Potential Mastered! ⚡",
+            "Cranial Nerves Memorized! 🧠",
+            "Sodium-Potassium Pump Ace! 🩸",
+            "Muscle Insertions Completed! 🦵",
+            "Fiziologija Homeostasis Achieved! ✨"
+        ];
+
+        function ringVictoryBell() {
+            cardsMasteredCount++;
+            document.getElementById('cardsMasteredBadge').innerText = `${cardsMasteredCount} Decks Ringed`;
+            
+            const phrase = victoryPhrases[cardsMasteredCount % victoryPhrases.length];
+            document.getElementById('lastMasteredText').innerText = `"${phrase}"`;
+
+            // Also give 10% boost to Love Energy Tank!
+            boostTankLevel(10);
+
+            // Bell Chime Audio Synthesis (Tone.js)
+            if (Tone.context.state !== 'running') Tone.start();
+            const bellSynth = new Tone.MetalSynth({
+                frequency: 800,
+                envelope: { attack: 0.001, decay: 1.4, release: 0.2 },
+                harmonicity: 5.1,
+                modulationIndex: 16,
+                resonance: 4000,
+                octaves: 1.5
+            }).toDestination();
+            bellSynth.volume.value = -8;
+            bellSynth.triggerAttackRelease("C6", "8n");
+
+            // Confetti Burst
+            confetti({
+                particleCount: 45,
+                spread: 80,
+                origin: { y: 0.5 },
+                colors: ['#f59e0b', '#fb7185', '#14b8a6']
+            });
+
+            // Mascot Speech Reaction
+            const mascotText = document.getElementById('mascotSpeech');
+            mascotText.innerText = `🔔 VICTORY! ${phrase}`;
+            mascotText.classList.remove('opacity-0', 'translate-y-2');
+            setTimeout(() => mascotText.classList.add('opacity-0', 'translate-y-2'), 3000);
+        }
+
+        // NEW FEATURE 2 LOGIC: IV INFUSION PUMP BRAIN POWER BOOSTER
+        let currentIvDose = "500ml Pure Love";
+
+        function setIvDose(type, btn) {
+            document.querySelectorAll('.iv-dose-btn').forEach(b => {
+                b.className = "iv-dose-btn px-2 py-2 bg-white text-gray-700 border border-teal-200 rounded-xl text-[11px] font-bold shadow-sm transition";
+            });
+            btn.className = "iv-dose-btn px-2 py-2 bg-teal-500 text-white rounded-xl text-[11px] font-bold shadow-sm transition";
+
+            if (type === 'hug') currentIvDose = "500ml Pure Love";
+            if (type === 'atp') currentIvDose = "Fiziologija ATP ⚡";
+            if (type === 'focus') currentIvDose = "1000mg Focus 🧠";
+
+            document.getElementById('ivDosageDisplay').innerText = currentIvDose;
+            document.getElementById('ivDripRateBadge').innerText = "Boosted Rate";
+            triggerIvDripFast();
+        }
+
+        function triggerIvDripFast() {
+            if (Tone.context.state !== 'running') Tone.start();
+            
+            // Boost tank level by 15%
+            boostTankLevel(15);
+
+            // Drip Sound Effect
+            const dripSynth = new Tone.Synth({
+                oscillator: { type: "sine" },
+                envelope: { attack: 0.001, decay: 0.15, sustain: 0, release: 0.1 }
+            }).toDestination();
+            dripSynth.volume.value = -6;
+            dripSynth.triggerAttackRelease("G6", "32n");
+
+            // SVG Drip Visual Pulse
+            const dripCircle = document.getElementById('svgDripCircle');
+            if (dripCircle) {
+                dripCircle.setAttribute('r', '4');
+                setTimeout(() => dripCircle.setAttribute('r', '2'), 600);
+            }
+
+            // Confetti Sparkle
+            confetti({
+                particleCount: 15,
+                spread: 35,
+                origin: { x: 0.8, y: 0.3 },
+                colors: ['#60a5fa', '#f43f5e']
+            });
+
+            // Mascot Speech Reaction
+            const mascotText = document.getElementById('mascotSpeech');
+            mascotText.innerText = `💧 IV Dose Administered: ${currentIvDose}!`;
+            mascotText.classList.remove('opacity-0', 'translate-y-2');
+            setTimeout(() => mascotText.classList.add('opacity-0', 'translate-y-2'), 2500);
+        }
+
+        function toggleHeartbeatSound() {
+            if (!isHeartbeatPlaying) {
+                Tone.start();
+                
+                // Procedural Stethoscope "lub-dub" Synthesizer
+                const heartMembrane = new Tone.MembraneSynth({
+                    pitchDecay: 0.08,
+                    octaves: 3,
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 0.005, decay: 0.25, sustain: 0.01, release: 0.2 }
+                }).toDestination();
+                heartMembrane.volume.value = 4;
+
+                heartbeatLoop = new Tone.Loop((time) => {
+                    // "Lub" (S1 - AV valves close)
+                    heartMembrane.triggerAttackRelease("C1", "8n", time);
+                    // "Dub" (S2 - Semilunar valves close)
+                    heartMembrane.triggerAttackRelease("G0", "8n", time + 0.18);
+                }, "0.8s").start(0);
+
+                Tone.Transport.start();
+                isHeartbeatPlaying = true;
+                document.getElementById('heartbeatSoundBtn').className = "bg-rose-500 text-white px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 shadow-md animate-pulse";
+                document.getElementById('heartbeatText').innerText = "Stethoscope Active 💓";
+            } else {
+                Tone.Transport.stop();
+                if (heartbeatLoop) heartbeatLoop.dispose();
+                isHeartbeatPlaying = false;
+                document.getElementById('heartbeatSoundBtn').className = "bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 shadow-sm";
+                document.getElementById('heartbeatText').innerText = "Play Stethoscope";
+            }
+        }
+
+        function triggerEcgSpike() {
+            bpm = Math.min(130, bpm + 15);
+            document.getElementById('bpmVal').innerText = bpm;
+            petMascot();
+            
+            // Temporary ECG spike chime
+            if (Tone.context.state === 'running') {
+                const synth = new Tone.PolySynth().toDestination();
+                synth.volume.value = -12;
+                synth.triggerAttackRelease(["E5", "B5"], "16n");
+            }
+
+            setTimeout(() => {
+                bpm = 75;
+                document.getElementById('bpmVal').innerText = bpm;
+            }, 3500);
+        }
+
+        /* --------------------------------------------------
+         * 2. DOCTOR'S RX PRESCRIPTION LOVE NOTES DRAWER
+         * -------------------------------------------------- */
+        const rxNotesData = [
+            {
+                tag: "Anatomija Boost 🦴",
+                text: "\"Rx: 1000mg of Pure Pride! Every time you memorize a muscle insertion or nerve pathway in Anatomija, remember how proud of you I am across the distance. You're going to be an incredible doctor!\""
+            },
+            {
+                tag: "Fiziologija Recharge ⚡",
+                text: "\"Rx: Stat dose of warm hugs! Action potentials take ATP energy, and so does learning all day long. Take a 5-minute break, relax your shoulders, and drink some water.\""
+            },
+            {
+                tag: "Cardiac Love 🫀",
+                text: "\"Rx: Unlimited Oxytocin Infusion! Depolarization may make the heart contract, but thinking about your cute smile is what keeps my heart beating all day.\""
+            },
+            {
+                tag: "Anatomija Atlas Focus 🧠",
+                text: "\"Rx: Cranial Nerve #13 — The Love Nerve! It connects directly from your study desk straight to my heart. You are doing so amazing, keep going!\""
+            },
+            {
+                tag: "Homeostasis Rest 🩸",
+                text: "\"Rx: Rest & Homeostasis Protocol! If your brain feels full from physiological feedback loops, take 3 deep breaths. I believe in you 1000%!\""
+            }
+        ];
+        let currentRxIdx = 0;
+
+        function drawNewRxNote() {
+            const card = document.getElementById('rxCard');
+            card.classList.add('scale-95', 'opacity-50');
+
+            if (Tone.context.state === 'running') {
+                const harp = new Tone.Synth().toDestination();
+                harp.volume.value = -10;
+                harp.triggerAttackRelease("C6", "16n");
+            }
+
+            setTimeout(() => {
+                currentRxIdx = (currentRxIdx + 1) % rxNotesData.length;
+                document.getElementById('rxTag').innerText = rxNotesData[currentRxIdx].tag;
+                document.getElementById('rxMessage').innerText = rxNotesData[currentRxIdx].text;
+                card.classList.remove('scale-95', 'opacity-50');
+            }, 250);
+        }
+
+        /* --------------------------------------------------
+         * 3. FLUID LOVE ENERGY TANK & HEART BURSTS
+         * -------------------------------------------------- */
+        let currentCharge = 45; // Start at 45% so user sees it fill up dynamically
+
+        function boostTankLevel(amount) {
+            currentCharge = Math.min(100, currentCharge + amount);
+            updateTankUI();
+        }
+
+        function updateTankUI() {
+            const liquid = document.getElementById('tankLiquid');
+            const percentLabel = document.getElementById('tankPercent');
+            const statusText = document.getElementById('tankStatusText');
+
+            if (liquid) liquid.style.height = `${currentCharge}%`;
+            if (percentLabel) percentLabel.innerText = `${currentCharge}% Charged`;
+
+            if (currentCharge >= 100) {
+                if (percentLabel) percentLabel.innerText = `100% MAXIMUM LOVE! 💖`;
+                if (statusText) statusText.innerText = `BATTERY FULLY CHARGED! ✨`;
+            }
+        }
+
+        function chargeLoveEnergy(e) {
+            // Increase charge by 15% on each tap up to 100%
+            if (currentCharge < 100) {
+                currentCharge = Math.min(100, currentCharge + 15);
+            } else {
+                // If already at 100%, trigger overflow celebration!
+                confetti({
+                    particleCount: 50,
+                    spread: 90,
+                    origin: { y: 0.6 },
+                    colors: ['#f43f5e', '#fb7185', '#38bdf8']
+                });
+            }
+            updateTankUI();
+
+            // Heart chime audio
+            if (Tone.context.state === 'running') {
+                const harp = new Tone.Synth({
+                    oscillator: { type: "triangle" },
+                    envelope: { attack: 0.005, decay: 0.2, sustain: 0, release: 0.2 }
+                }).toDestination();
+                harp.volume.value = -8;
+                harp.triggerAttackRelease(currentCharge >= 100 ? "C6" : "E5", "16n");
+            }
+
+            // Calculate tap coordinates relative to viewport for precise heart confetti location
+            let originX = 0.5;
+            let originY = 0.7;
+            if (e && e.clientX && e.clientY) {
+                originX = e.clientX / window.innerWidth;
+                originY = e.clientY / window.innerHeight;
+            }
+
+            // Confetti Heart Burst
+            confetti({
+                particleCount: 30,
+                spread: 70,
+                origin: { x: originX, y: originY },
+                colors: ['#f43f5e', '#fb7185', '#22c55e']
+            });
+
+            // Mascot Speech Reaction
+            const mascotText = document.getElementById('mascotSpeech');
+            mascotText.innerText = currentCharge >= 100 
+                ? `100% Full! You're unstoppable in Anatomija! 🩺💖`
+                : `Love battery charged to ${currentCharge}%! 🩺💖`;
+            mascotText.classList.remove('opacity-0', 'translate-y-2');
+            setTimeout(() => mascotText.classList.add('opacity-0', 'translate-y-2'), 2500);
+        }
+
+        /* --------------------------------------------------
+         * 4. ANATOMIJA & FIZIOLOGIJA STRESS POPPER
+         * -------------------------------------------------- */
+        const stressItems = [
+            "Brachial Plexus 🦴", "Cardiac Cycle 🫀", "Action Potential ⚡", 
+            "Cranial Nerves 🧠", "Muscle Insertions 🦵", "Sodium-Potassium Pump 🩸"
+        ];
+        let poppedCount = 0;
+
+        function spawnNewBubbles() {
+            const container = document.getElementById('bubbleZone');
+            container.innerHTML = '';
+            
+            stressItems.forEach((text, i) => {
+                const bubble = document.createElement('div');
+                bubble.className = `bubble-float bg-white/90 border border-teal-200 hover:border-teal-400 p-4 rounded-2xl shadow-sm text-center cursor-pointer transition transform active:scale-90 flex items-center justify-center font-bold text-xs text-gray-700`;
+                bubble.style.animationDelay = `${(i * 0.4).toFixed(1)}s`;
+                bubble.innerText = text;
+                bubble.onclick = (e) => popBubble(bubble, e);
+                container.appendChild(bubble);
+            });
+        }
+
+        function popBubble(element, event) {
+            poppedCount++;
+            document.getElementById('poppedCounter').innerText = `${poppedCount} Popped`;
+            
+            // Pop sound
+            if (Tone.context.state === 'running') {
+                const popSynth = new Tone.MembraneSynth().toDestination();
+                popSynth.volume.value = -8;
+                popSynth.triggerAttackRelease("C4", "32n");
+            }
+
+            // Confetti Burst at bubble location
+            const rect = element.getBoundingClientRect();
+            confetti({
+                particleCount: 15,
+                spread: 40,
+                origin: {
+                    x: (rect.left + rect.width / 2) / window.innerWidth,
+                    y: (rect.top + rect.height / 2) / window.innerHeight
+                },
+                colors: ['#14b8a6', '#f43f5e', '#f59e0b']
+            });
+
+            element.style.transform = 'scale(0) rotate(12deg)';
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.innerText = "Mastered! ✨";
+                element.className = "bg-teal-100 border border-teal-300 p-4 rounded-2xl text-center font-bold text-xs text-teal-800 shadow-inner flex items-center justify-center";
+                element.style.transform = 'scale(1)';
+                element.style.opacity = '1';
+                element.onclick = null;
+            }, 250);
+        }
+
+        /* --------------------------------------------------
+         * 5. ROOM ENVIRONMENT & MASCOT INTERACTION
+         * -------------------------------------------------- */
+        function setSky(mode) {
+            const sky = document.getElementById('windowSky');
+            const celestial = document.getElementById('windowCelestial');
+            const clouds = document.getElementById('windowClouds');
+            const stars = document.getElementById('windowStars');
+
+            document.getElementById('skyDayBtn').className = "px-2.5 py-1 rounded-full text-gray-600 transition";
+            document.getElementById('skySunsetBtn').className = "px-2.5 py-1 rounded-full text-gray-600 transition";
+            document.getElementById('skyNightBtn').className = "px-2.5 py-1 rounded-full text-gray-600 transition";
+
+            if (mode === 'day') {
+                sky.className = "sky-day transition-all duration-700";
+                celestial.setAttribute('fill', '#fde047');
+                celestial.setAttribute('cy', '48');
+                clouds.style.opacity = "0.85";
+                stars.style.opacity = "0";
+                document.getElementById('skyDayBtn').className = "px-2.5 py-1 rounded-full bg-white text-teal-700 shadow-sm transition";
+            } else if (mode === 'sunset') {
+                sky.className = "sky-sunset transition-all duration-700";
+                celestial.setAttribute('fill', '#fb923c');
+                celestial.setAttribute('cy', '65');
+                clouds.style.opacity = "0.5";
+                stars.style.opacity = "0";
+                document.getElementById('skySunsetBtn').className = "px-2.5 py-1 rounded-full bg-white text-teal-700 shadow-sm transition";
+            } else if (mode === 'night') {
+                sky.className = "sky-night transition-all duration-700";
+                celestial.setAttribute('fill', '#e2e8f0');
+                celestial.setAttribute('cy', '42');
+                clouds.style.opacity = "0.2";
+                stars.style.opacity = "1";
+                document.getElementById('skyNightBtn').className = "px-2.5 py-1 rounded-full bg-white text-teal-700 shadow-sm transition";
+            }
+        }
+
+        function petMascot() {
+            const mascotText = document.getElementById('mascotSpeech');
+            const phrases = [
+                "Dr. Bunny says: Anatomija atlas conquered! 🦴",
+                "Action potential fully depolarized! ⚡",
+                "Dr. Bunny prescribes a warm hug break! 🩺",
+                "You are doing so fantastic in Fiziologija! 🫀"
+            ];
+            mascotText.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+            mascotText.classList.remove('opacity-0', 'translate-y-2');
+
+            confetti({
+                particleCount: 12,
+                spread: 30,
+                origin: { y: 0.4 }
+            });
+
+            setTimeout(() => {
+                mascotText.classList.add('opacity-0', 'translate-y-2');
+            }, 2500);
+        }
+
+        /* --------------------------------------------------
+         * 6. BACKGROUND FLOATING SPARKLE CANVAS
+         * -------------------------------------------------- */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Sparkle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = -(Math.random() * 0.6 + 0.2);
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(20, 184, 166, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) particles.push(new Sparkle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.onload = function() {
+            animateCanvas();
+            spawnNewBubbles();
+        };
+    </script>
+</body>
+</html>
